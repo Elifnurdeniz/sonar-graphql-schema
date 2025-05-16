@@ -1,0 +1,694 @@
+```graphql
+"""A disbursement."""
+type Disbursement implements NoteableInterface & LoggableInterface & AccessloggableInterface {
+  """The ID of the entity."""
+  id: Int64Bit!
+  """
+  An ID that uniquely identifies this entity across the whole Sonar system.
+  """
+  sonar_unique_id: ID!
+  """The date and time this entity was created."""
+  created_at: Datetime!
+  """The last date and time this entity was modified."""
+  updated_at: Datetime!
+  """
+  A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+  """
+  _version: String!
+  """The amount, in the smallest currency value (e.g. cents, pence, pesos.)"""
+  amount: Int!
+  """The bank account."""
+  bank_account: String
+  """The ID of a BankProcessor."""
+  bank_account_processor_id: Int64Bit
+  """The ID of a CreditCardProcessor."""
+  credit_card_processor_id: Int64Bit
+  """The payment processor's external ID."""
+  external_id: String!
+  """The date and time this entity was processed."""
+  processed_at: Datetime
+  """The disbursement payout schedule."""
+  schedule: DisbursementSchedule
+  """The amount scheduled for payout."""
+  schedule_amount: Int
+  """The disbursement payout scheduling factor."""
+  schedule_factor: Int
+  """The unit of measurement for this disbursement's payout amount."""
+  schedule_unit: SonarPayUnit
+  """The status."""
+  status: DisbursementStatus!
+  """A disbursement detail."""
+  disbursement_details(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """The amount, in the smallest currency value (e.g. cents, pence, pesos.)"""
+    amount: Int
+    """The amount used."""
+    amount_used: Int
+    """The id of the entity that the disbusement applies to."""
+    disbursable_id: Int64Bit
+    """The type of entity that the disbursement applies to."""
+    disbursable_type: DisbursableType
+    """The ID of a `Disbursement`."""
+    disbursement_id: Int64Bit
+    """The event associated with the disbursement detail record."""
+    event: DisbursementDetailEvent
+    """The payment processor's external ID."""
+    external_id: String
+    """The amount for this fee."""
+    fee_amount: Int
+    """The unit of measurement for this fee's amount."""
+    fee_unit: SonarPayUnit
+    """The fractional portion of the amount."""
+    fractional_amount: Int
+    """The fractional portion of the amount used."""
+    fractional_amount_used: Int
+    """
+    The portion of the interchange fee that is a fixed amount. This is stored as
+    the smallest currency value (e.g. cents, pence, pesos.).
+    """
+    interchange_flat_rate_fee: Int
+    """
+    The portion of the interchange fee that is based on a percentage of the
+    transaction amount. This is stored as basis points (e.g. 260 represents 2.6%).
+    """
+    interchange_percent_fee: Int
+    """The name of the interchange fee type."""
+    interchange_type: String
+    """Whether or not this record is a fee."""
+    is_fee: Boolean
+    """The transaction ID from the credit card provider."""
+    transaction_id: String
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): DisbursementDetailConnection!
+  """A processor or method of processing bank account payments."""
+  bank_account_processor(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """Whether or not this is enabled."""
+    enabled: Boolean
+    """Whether or not this is the primary type of entity."""
+    primary: Boolean
+    """The provider for this processor."""
+    provider: BankAccountProvider
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): BankAccountProcessor
+  """A company that processes `CreditCard` transactions."""
+  credit_card_processor(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """American Express."""
+    amex: Boolean
+    """Dankort."""
+    dankort: Boolean
+    """Diner's Club."""
+    dinersclub: Boolean
+    """Discover."""
+    discover: Boolean
+    """Whether or not this is enabled."""
+    enabled: Boolean
+    """Forbrugsforeningen."""
+    forbrugsforeningen: Boolean
+    """JCB"""
+    jcb: Boolean
+    """Maestro."""
+    maestro: Boolean
+    """MasterCard."""
+    mastercard: Boolean
+    """
+    Enables processor specific `Mail Or Telephone Order` functionality. Currently only applicable for `Stripe`.
+    """
+    moto_enabled: Boolean
+    """Whether or not this is the primary type of entity."""
+    primary: Boolean
+    """The company that provides credit card processing services."""
+    provider: CreditCardProvider
+    """Union Pay."""
+    unionpay: Boolean
+    """Visa"""
+    visa: Boolean
+    """VISA Electron."""
+    visaelectron: Boolean
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): CreditCardProcessor
+  """A note."""
+  notes(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """The message."""
+    message: Text
+    """The ID of the entity that owns this note."""
+    noteable_id: Int64Bit
+    """The type of entity that owns this note."""
+    noteable_type: NoteableType
+    """The priority of this item."""
+    priority: NotePriority
+    """The ID of a User."""
+    user_id: Int64Bit
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): NoteConnection!
+  """A log entry."""
+  logs(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """Current data."""
+    current: Text
+    """
+    Whether or not this log was transferred from a Sonar v1 instance. If so, the
+    formatting will not match current version logs.
+    """
+    legacy: Boolean
+    """
+    A title which is only populated on logs that were imported from Sonar v1.
+    """
+    legacy_title: String
+    """The severity level."""
+    level: LogLevel
+    """The ID of the entity that this log is attached to."""
+    loggable_id: Int64Bit
+    """The type of entity that this log is attached to."""
+    loggable_type: String
+    """The entity ID that triggered the log."""
+    logged_entity_id: Int64Bit
+    """The entity that triggered the log."""
+    logged_entity_type: String
+    """The message."""
+    message: Text
+    """Previous data."""
+    previous: Text
+    """Data from objects related to this change."""
+    relation_data: Text
+    """The type."""
+    type: LogType
+    """The ID of a User."""
+    user_id: Int64Bit
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): LogConnection!
+  """An access log history on an entity."""
+  access_logs(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """The date and time that this entity was accessed."""
+    access_datetime: Datetime
+    """The ID of the entity that this access log belongs to."""
+    accessloggable_id: Int64Bit
+    """The entity that this access log belongs to."""
+    accessloggable_type: String
+    """The ID of the entity that this access log belongs to."""
+    entity_id: Int64Bit
+    """The entity that this access log belongs to."""
+    entity_name: String
+    """The ID of the user that accessed this entity."""
+    user_id: Int64Bit
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): AccessLogConnection!
+}
+
+"""The connection wrapper around the `DisbursementConnection` type."""
+type DisbursementConnection {
+  """A list of the entities provided by this connection."""
+  entities: [Disbursement]!
+  """
+  An object providing information about the page of results being displayed, as
+  well as the total amount of pages/records available.
+  """
+  page_info: PageInfo!
+  """
+  Provides the ability to return aggregated mathematical data about your results.
+  """
+  aggregations: [Aggregation]!
+}
+
+"""A disbursement detail."""
+type DisbursementDetail implements NoteableInterface & LoggableInterface & AccessloggableInterface {
+  """The ID of the entity."""
+  id: Int64Bit!
+  """
+  An ID that uniquely identifies this entity across the whole Sonar system.
+  """
+  sonar_unique_id: ID!
+  """The date and time this entity was created."""
+  created_at: Datetime!
+  """The last date and time this entity was modified."""
+  updated_at: Datetime!
+  """
+  A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+  """
+  _version: String!
+  """The amount, in the smallest currency value (e.g. cents, pence, pesos.)"""
+  amount: Int!
+  """The amount used."""
+  amount_used: Int!
+  """The id of the entity that the disbusement applies to."""
+  disbursable_id: Int64Bit
+  """The type of entity that the disbursement applies to."""
+  disbursable_type: DisbursableType
+  """The ID of a `Disbursement`."""
+  disbursement_id: Int64Bit!
+  """The event associated with the disbursement detail record."""
+  event: DisbursementDetailEvent!
+  """The payment processor's external ID."""
+  external_id: String!
+  """The amount for this fee."""
+  fee_amount: Int
+  """The unit of measurement for this fee's amount."""
+  fee_unit: SonarPayUnit
+  """The fractional portion of the amount."""
+  fractional_amount: Int!
+  """The fractional portion of the amount used."""
+  fractional_amount_used: Int!
+  """
+  The portion of the interchange fee that is a fixed amount. This is stored as
+  the smallest currency value (e.g. cents, pence, pesos.).
+  """
+  interchange_flat_rate_fee: Int
+  """
+  The portion of the interchange fee that is based on a percentage of the
+  transaction amount. This is stored as basis points (e.g. 260 represents 2.6%).
+  """
+  interchange_percent_fee: Int
+  """The name of the interchange fee type."""
+  interchange_type: String
+  """Whether or not this record is a fee."""
+  is_fee: Boolean!
+  """The transaction ID from the credit card provider."""
+  transaction_id: String
+  """A disbursement."""
+  disbursement(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """The amount, in the smallest currency value (e.g. cents, pence, pesos.)"""
+    amount: Int
+    """The bank account."""
+    bank_account: String
+    """The ID of a BankProcessor."""
+    bank_account_processor_id: Int64Bit
+    """The ID of a CreditCardProcessor."""
+    credit_card_processor_id: Int64Bit
+    """The payment processor's external ID."""
+    external_id: String
+    """The date and time this entity was processed."""
+    processed_at: Datetime
+    """The disbursement payout schedule."""
+    schedule: DisbursementSchedule
+    """The amount scheduled for payout."""
+    schedule_amount: Int
+    """The disbursement payout scheduling factor."""
+    schedule_factor: Int
+    """The unit of measurement for this disbursement's payout amount."""
+    schedule_unit: SonarPayUnit
+    """The status."""
+    status: DisbursementStatus
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): Disbursement
+  """The entity for this `DisbursementDetail`."""
+  disbursable(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """Whether or not to include archived entities in the results."""
+    include_archived: Boolean
+  ): DisbursableInterface
+  """A note."""
+  notes(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """The message."""
+    message: Text
+    """The ID of the entity that owns this note."""
+    noteable_id: Int64Bit
+    """The type of entity that owns this note."""
+    noteable_type: NoteableType
+    """The priority of this item."""
+    priority: NotePriority
+    """The ID of a User."""
+    user_id: Int64Bit
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): NoteConnection!
+  """A log entry."""
+  logs(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """Current data."""
+    current: Text
+    """
+    Whether or not this log was transferred from a Sonar v1 instance. If so, the
+    formatting will not match current version logs.
+    """
+    legacy: Boolean
+    """
+    A title which is only populated on logs that were imported from Sonar v1.
+    """
+    legacy_title: String
+    """The severity level."""
+    level: LogLevel
+    """The ID of the entity that this log is attached to."""
+    loggable_id: Int64Bit
+    """The type of entity that this log is attached to."""
+    loggable_type: String
+    """The entity ID that triggered the log."""
+    logged_entity_id: Int64Bit
+    """The entity that triggered the log."""
+    logged_entity_type: String
+    """The message."""
+    message: Text
+    """Previous data."""
+    previous: Text
+    """Data from objects related to this change."""
+    relation_data: Text
+    """The type."""
+    type: LogType
+    """The ID of a User."""
+    user_id: Int64Bit
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): LogConnection!
+  """An access log history on an entity."""
+  access_logs(
+    """The ID of the entity."""
+    id: Int64Bit
+    """
+    An ID that uniquely identifies this entity across the whole Sonar system.
+    """
+    sonar_unique_id: ID
+    """The date and time this entity was created."""
+    created_at: Datetime
+    """The last date and time this entity was modified."""
+    updated_at: Datetime
+    """
+    A string that shows the version of this entity. It will be incremented whenever the entity is modified.
+    """
+    _version: String
+    """The date and time that this entity was accessed."""
+    access_datetime: Datetime
+    """The ID of the entity that this access log belongs to."""
+    accessloggable_id: Int64Bit
+    """The entity that this access log belongs to."""
+    accessloggable_type: String
+    """The ID of the entity that this access log belongs to."""
+    entity_id: Int64Bit
+    """The entity that this access log belongs to."""
+    entity_name: String
+    """The ID of the user that accessed this entity."""
+    user_id: Int64Bit
+    """Provides the ability to paginate through results."""
+    paginator: Paginator
+    """Provides the ability to sort results."""
+    sorter: [Sorter]
+    """Complex search parameters."""
+    search: [Search]
+    """Search across all string fields with partial matching."""
+    general_search: String
+    """
+    Provides the ability to return aggregated mathematical data about your results.
+    """
+    aggregation: [Aggregator]
+    """
+    Reverse relation filters allow you to filter the result of a relation, and
+    use that filter to affect the returned root elements.
+    """
+    reverse_relation_filters: [ReverseRelationFilter]
+  ): AccessLogConnection!
+}
+
+"""The connection wrapper around the `DisbursementDetailConnection` type."""
+type DisbursementDetailConnection {
+  """A list of the entities provided by this connection."""
+  entities: [DisbursementDetail]!
+  """
+  An object providing information about the page of results being displayed, as
+  well as the total amount of pages/records available.
+  """
+  page_info: PageInfo!
+  """
+  Provides the ability to return aggregated mathematical data about your results.
+  """
+  aggregations: [Aggregation]!
+}
+```

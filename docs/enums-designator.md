@@ -1,0 +1,35 @@
+```graphql
+"""The unit designator (APT, STE, UNIT,...) associated with an address."""
+enum UnitDesignator {
+  """Apartment"""
+  APT
+  """Building"""
+  BLDG
+  """Department"""
+  DEPT
+  """Floor"""
+  FL
+  """Hanger"""
+  HNGR
+  """Key"""
+  KEY
+  """Lot"""
+  LOT
+  """Pier"""
+  PIER
+  """Room"""
+  RM
+  """Slip"""
+  SLIP
+  """Space"""
+  SPC
+  """Suite"""
+  STE
+  """Stop"""
+  STOP
+  """Trailer"""
+  TRLR
+  """Unit"""
+  UNIT
+}
+```

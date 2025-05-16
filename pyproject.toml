@@ -1,0 +1,13 @@
+[project]
+name = "sonar-schema-utils"
+version = "0.1.0"
+description = "Helper tools for splitting and managing the Sonar GraphQL schema."
+requires-python = ">=3.11"
+
+# leave dependencies empty; uv will fill them in
+dependencies = [
+    "graphql-core>=3.2.6",
+    "rich>=14.0.0",
+    "typer>=0.15.4",
+]
+
