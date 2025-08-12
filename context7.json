@@ -1,12 +1,10 @@
 {
-  "settings": {
-    "library": "sonar-graphql-schema",
-    "title":   "Sonar GraphQL Schema",
-    "docsRepoUrl": "https://github.com/brotherdust/sonar-schema-context7",
-    "folders": ["docs"]
-  },
-  "version": {
-    "lastUpdate": "2025-05-15",
-    "state": "initial"
-  }
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Sonar GraphQL Schema",
+  "description": "",
+  "folders": ["docs"],
+  "excludeFolders": [],
+  "excludeFiles": [],
+  "rules": [],
+  "previousVersions": []
 }
