@@ -1,5 +1,4 @@
 {
-  "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "Sonar GraphQL Schema",
   "description": "",
   "folders": ["docs"],
